@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  proyectos-1:
+    container_name: proyectos-1
+    image: proyectos:v1
+    build:
+      context: .
+    ports:
+      - "5001"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT = 5001
+    networks:
+      - proyectos
+
+  balanceador-carga:
+    container_name: balanceador-carga
+    image: balanceador-carga:v1
+    build:
+      context: ./balanceador
+    ports:
+      - 5003:80
+      
+    networks:
+      - proyectos
+networks:
+  proyectos:
