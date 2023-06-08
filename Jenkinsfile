@@ -8,12 +8,14 @@ pipeline{
             }
         }
         stage('Construir imagen docker'){
+            script{
             steps{
                 withCredentials([
                     string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                 ]){
                     docker.build('proyectos:v1', '--build-arg MONGO_URI=${MONGO_URI} .')
                 }
+            }
             }
         }
         stage('Desplegar contenedores docker'){
