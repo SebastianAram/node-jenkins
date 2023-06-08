@@ -4,12 +4,13 @@ pipeline{
     stages{
         stage('Clonar repositorio'){
             steps{
-                git brand: 'main', credentialsId: 'git-jenkins', url: 'https://github.com/SebastianAram/node-jenkins.git'
+                git branch: 'main', credentialsId: 'git-jenkins', url: 'https://github.com/SebastianAram/node-jenkins.git'
             }
         }
         stage('Construir imagen docker'){
-            script{
+            
             steps{
+                script{
                 withCredentials([
                     string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                 ]){
